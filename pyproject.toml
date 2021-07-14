@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "tap-wordpress"
 version = "0.0.1"
-description = "`tap-wordpress` is a Singer tap for wordpress, built with the Meltano SDK for Singer Taps."
+description = "`tap-wordpress` is a Singer tap for Wordpress WP-JSON API, built with the Meltano SDK for Singer Taps."
 authors = ["Luis Atala"]
 license = "Apache 2.0"
 
