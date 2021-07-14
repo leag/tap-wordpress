@@ -16,6 +16,7 @@ class WordpressStream(RESTStream):
     """Wordpress stream class."""
 
     url_base = "https://naipes.winterland.cl/wp-json"
+    _LOG_REQUEST_METRIC_URLS = True
 
     # OR use a dynamic url_base:
     # @property
@@ -52,17 +53,10 @@ class WordpressStream(RESTStream):
         params: dict = {}
         if next_page_token:
             params["page"] = next_page_token
-        # if self.replication_key:
-        #     params["sort"] = "asc"
-        #     params["order_by"] = self.replication_key
+        params["per_page"] = self.config.get("per_page")
         return params
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
         # TODO: Parse response body and return a set of records.
         yield from extract_jsonpath(self.records_jsonpath, input=response.json())
-
-    def post_process(self, row: dict, context: Optional[dict]) -> dict:
-        """As needed, append or transform raw data to match expected structure."""
-        # TODO: Delete this method if not needed.
-        return row

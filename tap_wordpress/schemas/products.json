@@ -515,6 +515,16 @@
                 true
             ]
         },
+        "low_stock_remaining": {
+            "$id": "#/properties/low_stock_remaining",
+            "type": ["integer", "null"],
+            "title": "The low_stock_remaining schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                0
+            ]
+        },
         "add_to_cart": {
             "$id": "#/properties/add_to_cart",
             "type": "object",

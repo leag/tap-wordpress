@@ -28,3 +28,6 @@ def test_link():
     link = '<https://naipes.winterland.cl/wp-json/wc/store/products?page=1>; rel="prev", <https://naipes.winterland.cl/wp-json/wc/store/products?page=3>; rel="next"'
     next_link = get_next_page(link)
     assert next_link == 3
+    link = '<https://naipes.winterland.cl/wp-json/wc/store/products?page=141&per_page=100>; rel="prev"'
+    next_link = get_next_page(link)
+    assert next_link == None

@@ -25,6 +25,7 @@ class TapWordpress(Tap):
 
     # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
+        th.Property("per_page", th.IntegerType, default=100)
         # th.Property("auth_token", th.StringType, required=True),
         # th.Property("project_ids", th.ArrayType(th.StringType), required=True),
         # th.Property("start_date", th.DateTimeType),
