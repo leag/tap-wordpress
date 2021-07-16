@@ -18,7 +18,7 @@ class ProductsStream(WordpressStream):
     name = "products"
     path = "/wc/store/products"
     primary_keys = ["id"]
-    replication_key = None
+    replication_key = "id"
     # Optionally, you may also use `schema_filepath` in place of `schema`:
     schema_filepath = SCHEMAS_DIR / "products.json"
     # schema = th.PropertiesList(

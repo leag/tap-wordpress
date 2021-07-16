@@ -54,6 +54,9 @@ class WordpressStream(RESTStream):
         if next_page_token:
             params["page"] = next_page_token
         params["per_page"] = self.config.get("per_page")
+        if self.replication_key:
+             params["order"] = "asc"
+             params["orderby"] = self.replication_key
         return params
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
