@@ -2,7 +2,7 @@
 
 import requests
 from pathlib import Path
-from typing import Any, Dict, Optional, Union, List, Iterable
+from typing import Any, Dict, Optional, Iterable
 
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
@@ -18,14 +18,7 @@ class WordpressStream(RESTStream):
     url_base = "https://naipes.winterland.cl/wp-json"
     _LOG_REQUEST_METRIC_URLS = True
 
-    # OR use a dynamic url_base:
-    # @property
-    # def url_base(self) -> str:
-    #     """Return the API URL root, configurable via tap settings."""
-    #     return self.config["api_url"]
-
-    records_jsonpath = "$[*]"  # Or override `parse_response`.
-    # next_page_token_jsonpath = "$.next_page"  # Or override `get_next_page_token`.
+    records_jsonpath = "$[*]"
 
     @property
     def http_headers(self) -> dict:
@@ -33,8 +26,6 @@ class WordpressStream(RESTStream):
         headers = {}
         if "user_agent" in self.config:
             headers["User-Agent"] = self.config.get("user_agent")
-        # If not using an authenticator, you may also provide inline auth headers:
-        # headers["Private-Token"] = self.config.get("auth_token")
         return headers
 
     def get_next_page_token(
@@ -55,11 +46,10 @@ class WordpressStream(RESTStream):
             params["page"] = next_page_token
         params["per_page"] = self.config.get("per_page")
         if self.replication_key:
-             params["order"] = "asc"
-             params["orderby"] = self.replication_key
+            params["order"] = "asc"
+            params["orderby"] = self.replication_key
         return params
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
-        # TODO: Parse response body and return a set of records.
         yield from extract_jsonpath(self.records_jsonpath, input=response.json())
