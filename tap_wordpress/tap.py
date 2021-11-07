@@ -1,5 +1,6 @@
 """wordpress tap class."""
 
+from email.policy import default
 from typing import List
 
 from singer_sdk import Tap, Stream
@@ -19,6 +20,7 @@ class TapWordpress(Tap):
     name = "tap-wordpress"
 
     config_jsonschema = th.PropertiesList(
+        th.Property("site", th.StringType, default='https://naipes.winterland.cl'),
         th.Property("per_page", th.IntegerType, default=100)
     ).to_dict()
 

@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/luis/.cache/pypoetry/virtualenvs/tap-wordpress-e0CGfbbW-py3.8/bin/python",
+    "python.pythonPath": "~/.cache/pypoetry/virtualenvs/tap-wordpress-K0S1iXfr-py3.9/bin/python",
     "python.testing.unittestArgs": [
         "-v",
         "-s",

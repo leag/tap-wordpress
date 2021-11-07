@@ -2,10 +2,9 @@
 
 import datetime
 
+from linkheader_parser import parse
 from singer_sdk.testing import get_standard_tap_tests
-
 from tap_wordpress.tap import TapWordpress
-from tap_wordpress.helpers import get_next_page
 
 SAMPLE_CONFIG = {
     "start_date": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
@@ -25,9 +24,10 @@ def test_standard_tap_tests():
 
 
 def test_link():
+
     link = '<https://naipes.winterland.cl/wp-json/wc/store/products?page=1>; rel="prev", <https://naipes.winterland.cl/wp-json/wc/store/products?page=3>; rel="next"'
-    next_link = get_next_page(link)
-    assert next_link == 3
+    next_link = parse(link)
+    assert next_link["next"]["page"] == "3"
     link = '<https://naipes.winterland.cl/wp-json/wc/store/products?page=141&per_page=100>; rel="prev"'
-    next_link = get_next_page(link)
-    assert next_link == None
+    next_link = parse(link)
+    assert next_link.get("next") == None
